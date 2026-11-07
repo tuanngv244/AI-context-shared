@@ -7,4 +7,4 @@ Hai nút **How it works** và **Docs** (tiếng Việt: **Luồng hoạt động
 
 Hai modal hỗ trợ EN/VI, light/dark mode, bàn phím và màn hình nhỏ. Nhấn Escape hoặc Close để đóng.
 
-Thông tin tác giả mặc định là **Shared Context Engine contributors**. Nếu muốn tùy chỉnh, sửa `name` và `githubUrl` trong `apps/dashboard/app/config/author.ts`, sau đó build hoặc export lại. `githubUrl` nhận liên kết HTTPS tới hồ sơ GitHub; để trống khi không cần hiển thị liên kết.
+Tác giả: [tuanngv244](https://github.com/tuanngv244). Liên kết GitHub xuất hiện ở cuối phần **Docs / Hướng dẫn** trên dashboard. Nếu muốn tùy chỉnh, sửa `name` và `githubUrl` trong `apps/dashboard/app/config/author.ts`, sau đó build lại dashboard. `githubUrl` nhận liên kết HTTPS tới hồ sơ GitHub; để trống khi không cần hiển thị liên kết.

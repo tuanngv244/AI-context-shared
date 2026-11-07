@@ -1,8 +1,7 @@
 import { defineConfig } from '@playwright/test';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 mkdirSync('.local', { recursive: true });
 writeFileSync('apps/dashboard/.tsconfig-ui.json', readFileSync('apps/dashboard/tsconfig.json'));
-const chrome = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 export default defineConfig({
   testDir: 'tests/ui',
   fullyParallel: false,
@@ -14,9 +13,7 @@ export default defineConfig({
     trace: 'retain-on-failure',
     launchOptions: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE
       ? { executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE }
-      : existsSync(chrome)
-        ? { executablePath: chrome }
-        : {},
+      : {},
   },
   webServer: {
     command:

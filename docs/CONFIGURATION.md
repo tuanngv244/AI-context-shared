@@ -4,15 +4,15 @@ Start with `npm run dev` for a local installation. It creates a token and databa
 
 ## Local service
 
-| Variable | Default | Purpose |
-| --- | --- | --- |
-| `SCE_WORKSPACE_ROOTS` | Parent of the working directory | Directories containing Git repositories to watch |
-| `SCE_DEV_DIR` | `.local` | Persistent local database and token directory |
-| `API_PORT` | `8787` | Local API and MCP port |
-| `DASHBOARD_PORT` | `3000` | Local dashboard port |
-| `SCE_CODEX_SESSIONS_DIR` | Client session directory | Override the Codex session log location |
-| `SCE_CODEX_ARCHIVED_DIR` | Client archive directory | Override the Codex archived session location |
-| `SCE_CLAUDE_SESSIONS_DIR` | Client projects directory | Override the Claude Code log location |
+| Variable                  | Default                         | Purpose                                          |
+| ------------------------- | ------------------------------- | ------------------------------------------------ |
+| `SCE_WORKSPACE_ROOTS`     | Parent of the working directory | Directories containing Git repositories to watch |
+| `SCE_DEV_DIR`             | `.local`                        | Persistent local database and token directory    |
+| `API_PORT`                | `8787`                          | Local API and MCP port                           |
+| `DASHBOARD_PORT`          | `3000`                          | Local dashboard port                             |
+| `SCE_CODEX_SESSIONS_DIR`  | Client session directory        | Override the Codex session log location          |
+| `SCE_CODEX_ARCHIVED_DIR`  | Client archive directory        | Override the Codex archived session location     |
+| `SCE_CLAUDE_SESSIONS_DIR` | Client projects directory       | Override the Claude Code log location            |
 
 These examples use generic relative directories; replace them with your own locations.
 
@@ -36,10 +36,10 @@ npm run dev
 
 `npm run mcp:config` prints a server entry for the default local setup. Add `-- claude` for JSON output. It references a token file instead of embedding a credential.
 
-| Variable | Default | Purpose |
-| --- | --- | --- |
-| `SCE_URL` | `http://127.0.0.1:8787/mcp` | MCP endpoint used by the bridge |
-| `SCE_TOKEN_FILE` | Generated entry points to `.local/dev-token` | Token file read by the bridge |
+| Variable         | Default                                      | Purpose                         |
+| ---------------- | -------------------------------------------- | ------------------------------- |
+| `SCE_URL`        | `http://127.0.0.1:8787/mcp`                  | MCP endpoint used by the bridge |
+| `SCE_TOKEN_FILE` | Generated entry points to `.local/dev-token` | Token file read by the bridge   |
 
 If you change `API_PORT`, set `SCE_URL` when generating the entry. If you change `SCE_DEV_DIR`, update `SCE_TOKEN_FILE` in the generated entry to match. Regenerate paths after moving the installation. Keep generated entries private to your machine.
 

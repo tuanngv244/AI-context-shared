@@ -51,11 +51,11 @@ Ví dụ yêu cầu agent, thay `example-app` bằng tên repo đã theo dõi:
 
 Các tool chính:
 
-| Tool | Công dụng |
-| --- | --- |
-| `context_repositories` | Liệt kê các repo được phép truy cập |
-| `context_recall` | Tìm lịch sử và ngữ cảnh theo tên repo |
-| `context_checkpoint` | Lưu tóm tắt, việc còn dở và trở ngại |
+| Tool                   | Công dụng                             |
+| ---------------------- | ------------------------------------- |
+| `context_repositories` | Liệt kê các repo được phép truy cập   |
+| `context_recall`       | Tìm lịch sử và ngữ cảnh theo tên repo |
+| `context_checkpoint`   | Lưu tóm tắt, việc còn dở và trở ngại  |
 
 Khi đọc repo khác từ phiên hiện tại, gửi tên repo đích và bỏ `cwd` của repo đang mở. Lịch sử do agent báo cáo không thay thế việc kiểm tra code hoặc chạy test.
 
@@ -73,7 +73,7 @@ Mặc định lịch sử được giữ **30 ngày**, tối đa **10.000 ghi nh
 
 Observer không lưu toàn bộ transcript, prompt, reasoning hoặc tool payload. Nội dung tóm tắt vẫn có thể chứa thông tin riêng tư; bộ lọc secret không bảo đảm nhận diện tất cả. Không chia sẻ `.local/`, `.env`, log hoặc cấu hình MCP đã sinh trên máy.
 
-Để tạo bản source sạch cho người khác cài đặt, xem [hướng dẫn chia sẻ](SHARING.md).
+Public trực tiếp repository này lên GitHub. Xem [hướng dẫn public repo](SHARING.md) để giữ dữ liệu local ngoài Git.
 
 ## 7. Chạy bằng Docker
 
@@ -97,6 +97,10 @@ npm run test:ui
 ```
 
 Smoke test dùng database và cổng riêng. Test UI sử dụng dữ liệu mô phỏng.
+
+## Tác giả
+
+[tuanngv244](https://github.com/tuanngv244)
 
 ## Giấy phép
 

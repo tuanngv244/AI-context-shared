@@ -6,6 +6,10 @@ Shared Context Engine (SCE) is a local service that gives coding agents a shared
 
 [Quick start](#quick-start) · [Connect your agent](#connect-your-agent) · [Documentation](#documentation) · [Tiếng Việt](docs/HUONG-DAN-SU-DUNG.md)
 
+![Shared Context Engine dashboard with watched repositories, activity metrics, and Codex and Claude session history](docs/screenshots/dashboard.png)
+
+_A shared workspace for repository history, agent sessions, and the next task. Screenshots use demo data._
+
 ## What it does
 
 - **Session continuity.** Recall previous work, pending tasks, and handoffs when starting a new session.
@@ -14,15 +18,19 @@ Shared Context Engine (SCE) is a local service that gives coding agents a shared
 - **Local dashboard.** Browse history, search loaded memories, and manage retention with English/Vietnamese and light/dark themes.
 - **MCP access.** Connect multiple clients to one service through a generated configuration.
 
-```text
-Selected repositories + supported local agent logs
-                       ↓
-              Observer → redaction
-                       ↓
-               API + local database
-                  ↙           ↘
-             Dashboard     MCP recall
-```
+## A closer look
+
+### From a session to shared memory
+
+Selected repository logs flow through the observer and redaction into local storage. Agents recall that context through MCP and save checkpoints for the next session.
+
+![The six-step workflow: work in a repository, capture and redact, process events, store memory, recall through MCP, and checkpoint](docs/screenshots/flow.png)
+
+### Decisions and handoffs, ready for the next session
+
+Keep durable decisions, conventions, and pending work beside session history. The dashboard supports both light and dark themes.
+
+![Dark theme showing repository context, decisions, conventions, and a handoff with pending work](docs/screenshots/context.png)
 
 ## Quick start
 
@@ -35,7 +43,7 @@ npm run dev
 
 1. Open [localhost:3000](http://localhost:3000).
 2. Copy the contents of `.local/dev-token` into **Access token** and connect.
-3. Enter a local Git repository's folder name, choose its history window, and select **Watch repo**.
+3. Enter a local Git repository's folder name, choose its history window, and select **Watch repository**.
 
 The default workspace is the parent of the SCE installation directory. If your repositories live elsewhere, set `SCE_WORKSPACE_ROOTS` before starting the service. Use your operating system's path separator for multiple roots. See the [configuration guide](docs/CONFIGURATION.md).
 
@@ -67,7 +75,7 @@ Runtime data stays in `.local/` for the default local setup. The observer import
 
 Session history defaults to **30 days**, with limits of **10,000 memories** or **100 MiB of content per repository**. Durable context and pending events are retained separately. These limits are not a hard quota for the entire database. See [retention and cleanup](docs/RETENTION.md).
 
-Keep `.local/`, `.env` files, generated MCP settings, and agent logs out of shared copies. Use the [source export guide](docs/SHARING.md) to prepare a clean snapshot.
+Publish this repository directly. Keep `.local/`, `.env` files, generated MCP settings, and agent logs out of Git; see [publishing on GitHub](docs/SHARING.md).
 
 ## Docker
 
@@ -94,14 +102,14 @@ npm run test:ui              # Dashboard tests with mock data
 
 Smoke tests use separate databases and ports. UI tests use synthetic repository data.
 
-| Directory | Purpose |
-| --- | --- |
-| `apps/` | API, dashboard, and background worker |
+| Directory   | Purpose                                                    |
+| ----------- | ---------------------------------------------------------- |
+| `apps/`     | API, dashboard, and background worker                      |
 | `packages/` | Context engine, storage, observer, retention, and security |
-| `cli/` | Lifecycle wrapper and offline event spool |
-| `adapters/` | Client integration examples |
-| `docs/` | Setup, configuration, and API reference |
-| `tests/` | Automated tests and synthetic fixtures |
+| `cli/`      | Lifecycle wrapper and offline event spool                  |
+| `adapters/` | Client integration examples                                |
+| `docs/`     | Setup, configuration, and API reference                    |
+| `tests/`    | Automated tests and synthetic fixtures                     |
 
 ## Documentation
 
@@ -110,9 +118,13 @@ Smoke tests use separate databases and ports. UI tests use synthetic repository 
 - [MCP tools and API contracts](docs/api/README.md)
 - [Retention and cleanup](docs/RETENTION.md)
 - [Dashboard help](docs/UI-HELP.md) and [language settings](docs/LANGUAGES.md)
-- [Exporting source for sharing](docs/SHARING.md)
+- [Publishing on GitHub](docs/SHARING.md)
 
 Agent history is reported context, not verified evidence of code changes. Log formats vary by client version, and logs unavailable on the host cannot be observed. Recall instructions guide clients but do not force every chat to load context automatically.
+
+## Author
+
+Created by [tuanngv244](https://github.com/tuanngv244).
 
 ## License
 

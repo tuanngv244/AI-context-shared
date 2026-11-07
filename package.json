@@ -28,8 +28,7 @@
     "dev": "tsx scripts/dev.ts",
     "test:memory-smoke": "tsx scripts/smoke-memory.ts",
     "test:ui": "playwright test",
-    "mcp:config": "node scripts/mcp-config.mjs",
-    "export:common": "node scripts/export-common.mjs"
+    "mcp:config": "node scripts/mcp-config.mjs"
   },
   "dependencies": {
     "@fastify/rate-limit": "10.3.0",

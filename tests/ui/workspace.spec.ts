@@ -251,14 +251,19 @@ test('help dialogs explain flow and storage, docs localize and restore focus', a
   await expect(page.getByRole('button', { name: 'How it works', exact: true })).toBeFocused();
   await page.getByRole('button', { name: 'Docs', exact: true }).click();
   await expect(dialog).toContainText('npm run mcp:config');
-  await expect(dialog).toContainText('Shared Context Engine contributors');
-  await expect(dialog).toContainText('GitHub: link to be added');
-  await expect(dialog.getByRole('link')).toHaveCount(0);
+  await expect(dialog).toContainText('Author: tuanngv244');
+  await expect(dialog.getByRole('link', { name: 'GitHub' })).toHaveAttribute(
+    'href',
+    'https://github.com/tuanngv244',
+  );
   await dialog.getByRole('button', { name: 'Close', exact: true }).click();
   await page.getByRole('button', { name: 'Tiếng Việt', exact: true }).click();
   await page.getByRole('button', { name: 'Hướng dẫn', exact: true }).click();
-  await expect(dialog).toContainText('Tác giả: Shared Context Engine contributors');
-  await expect(dialog).toContainText('GitHub: sẽ bổ sung liên kết');
+  await expect(dialog).toContainText('Tác giả: tuanngv244');
+  await expect(dialog.getByRole('link', { name: 'GitHub' })).toHaveAttribute(
+    'href',
+    'https://github.com/tuanngv244',
+  );
   await dialog.getByRole('button', { name: 'Đóng', exact: true }).click();
   await page.getByRole('button', { name: 'Luồng hoạt động', exact: true }).click();
   await expect(dialog).toContainText('Dữ liệu được lưu ở đâu?');

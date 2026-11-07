@@ -26,6 +26,3 @@
 coverage
 test-results
 playwright-report
-common
-.common-export-*
-COMMON-MANIFEST.json

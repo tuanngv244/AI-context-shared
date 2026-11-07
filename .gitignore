@@ -29,7 +29,3 @@ playwright-report/
 .sce/
 .DS_Store
 
-# Source exports
-common/
-.common-export-*/
-COMMON-MANIFEST.json
