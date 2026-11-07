@@ -1,0 +1,35 @@
+# Dependencies and generated files
+node_modules/
+dist/
+.next/
+**/.next-*
+**/.tsconfig-*
+**/next-env.d.ts
+*.tsbuildinfo
+coverage/
+test-results/
+playwright-report/
+
+# Local data and credentials
+.local/
+.env
+.env.*
+!.env.example
+*.sqlite*
+*.log
+*.jsonl
+*.pem
+*.key
+.codex/
+.claude/
+.agents/
+.aws/
+.ssh/
+.kube/
+.sce/
+.DS_Store
+
+# Source exports
+common/
+.common-export-*/
+COMMON-MANIFEST.json

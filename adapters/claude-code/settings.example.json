@@ -1,0 +1,20 @@
+{
+  "hooks": {
+    "SessionStart": [
+      { "hooks": [{ "type": "command", "command": "sce hook session-start", "timeout": 5 }] }
+    ],
+    "UserPromptSubmit": [
+      { "hooks": [{ "type": "command", "command": "sce hook prompt-submit", "timeout": 5 }] }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [{ "type": "command", "command": "sce hook tool-completed", "timeout": 5 }]
+      }
+    ],
+    "PreCompact": [
+      { "hooks": [{ "type": "command", "command": "sce hook pre-compact", "timeout": 5 }] }
+    ],
+    "Stop": [{ "hooks": [{ "type": "command", "command": "sce hook stop", "timeout": 5 }] }]
+  }
+}

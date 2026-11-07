@@ -1,0 +1,433 @@
+export type Language = 'en' | 'vi';
+const pairs: [string, string][] = [
+  [
+    'Token không đúng. Copy nội dung .local/dev-token.',
+    'Invalid token. Copy the contents of .local/dev-token.',
+  ],
+  ['Không tải được dữ liệu', 'Unable to load data'],
+  ['Không đọc được lịch sử repo', 'Unable to load repository history'],
+  [
+    'Không thể copy. Bạn có thể chọn và copy nội dung hướng dẫn bên dưới.',
+    'Unable to copy. Select and copy the instructions below instead.',
+  ],
+  ['Chưa có dữ liệu', 'No data yet'],
+  ['SCE trang chủ', 'SCE home'],
+  ['Không gian ghi nhớ cho coding agents', 'Shared memory for coding agents'],
+  ['Đã kết nối', 'Connected'],
+  ['Ngắt kết nối', 'Disconnect'],
+  ['Local workspace', 'Local workspace'],
+  ['Mọi phiên làm việc.', 'Every work session.'],
+  ['Cùng một bộ nhớ.', 'One shared memory.'],
+  [
+    'Giữ lại quyết định, kết quả và việc đang dở — để phiên tiếp theo bắt nhịp nhanh hơn, dù đang ở dự án nào.',
+    'Keep decisions, results, and work in progress so the next session can pick up faster, in any project.',
+  ],
+  ['Thêm repository', 'Add repository'],
+  ['Chọn repo local cần quan sát.', 'Choose a local repository to watch.'],
+  ['Lịch sử tự đồng bộ', 'History, automatically synced'],
+  [
+    'Nhập trả lời assistant được hỗ trợ từ log local.',
+    'Import supported assistant responses from local logs.',
+  ],
+  ['Tiếp tục qua MCP', 'Continue through MCP'],
+  [
+    'Đọc lịch sử theo tên repo, không cần UUID.',
+    'Recall history by repository name, without UUIDs.',
+  ],
+  ['BƯỚC 0', 'STEP 0'],
+  ['Kết nối workspace', 'Connect workspace'],
+  [
+    'Dùng token trên máy để xem và quản lý các repository của bạn.',
+    'Use your local token to view and manage your repositories.',
+  ],
+  ['Access token', 'Access token'],
+  ['Dán token local của bạn', 'Paste your local token'],
+  ['Mở file', 'Open'],
+  ['sau khi chạy', 'after running'],
+  ['rồi copy nội dung vào đây.', 'and paste its contents here.'],
+  ['Đang kết nối…', 'Connecting…'],
+  [
+    'Token chỉ nằm trong bộ nhớ phiên trình duyệt, không lưu vào localStorage.',
+    'Your token stays in browser session memory and is never saved to localStorage.',
+  ],
+  ['WORKSPACE / SHARED MEMORY', 'WORKSPACE / SHARED MEMORY'],
+  ['Bộ nhớ dự án', 'Project memory'],
+  [
+    'Theo dõi lịch sử. Nắm bắt quyết định. Tiếp tục công việc.',
+    'Follow the history. Understand decisions. Keep the work moving.',
+  ],
+  ['Tự cập nhật mỗi 5 giây', 'Updates every 5 seconds'],
+  ['Repositories', 'Repositories'],
+  ['Tìm repository', 'Find a repository'],
+  ['Tìm repository…', 'Find a repository…'],
+  ['Repository đang quan sát', 'Watched repositories'],
+  ['Đồng bộ một phần', 'Partially synced'],
+  ['Đang quan sát', 'Watching'],
+  ['Đang chờ', 'Waiting'],
+  ['Tạm dừng', 'Pause'],
+  ['Không có repo phù hợp.', 'No matching repositories.'],
+  [
+    'Chưa có repository. Thêm repo đầu tiên bên dưới.',
+    'No repositories yet. Add your first one below.',
+  ],
+  ['Tên thư mục repo', 'Repository folder name'],
+  ['Ví dụ: frontend-app', 'Example: frontend-app'],
+  ['Giữ lịch sử', 'Keep history'],
+  ['1 ngày', '1 day'],
+  ['7 ngày', '7 days'],
+  ['30 ngày', '30 days'],
+  ['90 ngày', '90 days'],
+  ['1 năm', '1 year'],
+  ['10 năm', '10 years'],
+  ['Đang thêm…', 'Adding…'],
+  ['Quan sát repo', 'Watch repository'],
+  [
+    'Bật nhập trích đoạn trả lời assistant đã lọc secret cho repo này. Không nhập prompt, reasoning hay output công cụ.',
+    'Enable secret-redacted assistant excerpts for this repository. Prompts, reasoning, and tool output are not imported.',
+  ],
+  ['Chạy npm run dev để bật host observer.', 'Run npm run dev to enable the host observer.'],
+  ['Lần nhập gần nhất:', 'Last imported:'],
+  ['Quan sát tiếp', 'Resume watching'],
+  ['Dọn context cũ', 'Clear old context'],
+  ['Tổng quan repository', 'Repository overview'],
+  ['Ghi nhớ đã lưu', 'Saved memories'],
+  ['Phiên gần đây', 'Recent sessions'],
+  ['Context chủ động', 'Published context'],
+  ['Event chờ xử lý', 'Pending events'],
+  ['Lịch sử có giới hạn', 'History storage limits'],
+  ['Mức sử dụng lịch sử', 'History storage usage'],
+  ['Tự loại bản cũ nhất khi vượt trần', 'Oldest entries are removed when limits are reached'],
+  ['Tiếp tục ở bất kỳ phiên Codex hoặc Claude nào', 'Continue in any Codex or Claude session'],
+  ['Copy lời nhắc SCE', 'Copy SCE prompt'],
+  ['Copy lời nhắc', 'Copy prompt'],
+  ['Loại dữ liệu', 'Data type'],
+  ['Lịch sử phiên', 'Session history'],
+  ['Context', 'Context'],
+  ['Các phiên', 'Sessions'],
+  ['Lọc provider', 'Filter by provider'],
+  ['Tất cả agents', 'All agents'],
+  ['Tìm trong lịch sử đã tải', 'Search loaded history'],
+  ['Tìm trong lịch sử đã tải…', 'Search loaded history…'],
+  ['Hiển thị tối đa 100 ghi nhớ gần nhất', 'Showing up to 100 recent memories'],
+  ['Đang tải lịch sử…', 'Loading history…'],
+  ['Không có kết quả phù hợp', 'No matching results'],
+  ['Chưa có lịch sử để hiển thị', 'No history to display yet'],
+  ['Thử từ khóa hoặc provider khác.', 'Try another keyword or provider.'],
+  [
+    'Observer sẽ nhập trả lời assistant phù hợp từ log local. Bạn cũng có thể dùng context_checkpoint qua MCP.',
+    'The observer will import supported assistant responses from local logs. You can also use context_checkpoint through MCP.',
+  ],
+  ['Agent report', 'Agent report'],
+  ['Đọc đầy đủ', 'Read full entry'],
+  ['Chưa rõ branch', 'Unknown branch'],
+  ['Chưa có SHA', 'No commit SHA'],
+  ['Việc còn lại', 'Pending work'],
+  ['Vướng mắc', 'Blockers'],
+  ['Đang tải…', 'Loading…'],
+  ['Chưa có context chủ động', 'No published context yet'],
+  [
+    'Quyết định, contract và handoff được ghi qua MCP sẽ xuất hiện ở đây.',
+    'Decisions, contracts, and handoffs published through MCP will appear here.',
+  ],
+  ['Handoff', 'Handoff'],
+  ['Project-wide', 'Project-wide'],
+  ['Chưa có phiên nào', 'No sessions yet'],
+  [
+    'Phiên agent có ghi nhớ sẽ tự xuất hiện tại đây.',
+    'Agent sessions with saved memories will appear here automatically.',
+  ],
+  ['Không gian mới, sẵn sàng ghi nhớ.', 'A fresh workspace, ready to remember.'],
+  [
+    'Thêm repository đầu tiên ở bên trái để bắt đầu kết nối lịch sử giữa các phiên agent.',
+    'Add your first repository on the left to connect history across agent sessions.',
+  ],
+  ['Chỉ quan sát những repo bạn chọn', 'Only the repositories you choose are watched'],
+  ['Đóng thông báo lỗi', 'Dismiss error'],
+  ['Đóng thông báo', 'Dismiss notification'],
+  [
+    'Context là dữ liệu tham khảo, luôn giữ branch và provenance.',
+    'Context is reference data. Always preserve its branch and provenance.',
+  ],
+  ['Shared Context Engine · Local workspace', 'Shared Context Engine · Local workspace'],
+  ['QUẢN LÝ LỊCH SỬ', 'HISTORY MANAGEMENT'],
+  ['Chỉ xóa ghi nhớ phiên của', 'Only delete session memories for'],
+  [
+    'trước mốc đã chọn. Thao tác không thể hoàn tác.',
+    'before the selected cutoff. This action cannot be undone.',
+  ],
+  ['Ghi nhớ cũ hơn', 'Memories older than'],
+  [
+    'Giữ nguyên quyết định, contract, handoff chủ động và event đang chờ xử lý.',
+    'Decisions, contracts, published handoffs, and pending events are preserved.',
+  ],
+  ['MiB nội dung · trước', 'MiB of content · before'],
+  ['Không có lịch sử phù hợp để xóa.', 'There is no matching history to delete.'],
+  ['Hủy', 'Cancel'],
+  ['Đang kiểm tra…', 'Checking…'],
+  ['Xem trước', 'Preview'],
+  ['Đang dọn…', 'Clearing…'],
+  ['Xác nhận dọn lịch sử', 'Confirm history cleanup'],
+  ['Giao diện', 'Appearance'],
+  ['Sáng', 'Light'],
+  ['Tối', 'Dark'],
+  ['Hệ thống', 'System'],
+  [
+    'Không tìm thấy repo trong thư mục workspace đã cấu hình. Chọn tên từ danh sách gợi ý.',
+    'Repository not found in the configured workspace roots. Choose a suggested name.',
+  ],
+  [
+    'SCE chưa sẵn sàng. Kiểm tra terminal npm run dev.',
+    'SCE is not ready. Check the terminal running npm run dev.',
+  ],
+  ['Access denied', 'Access denied'],
+  ['Invalid request', 'Invalid request'],
+  ['Internal service error', 'Internal service error'],
+  ['Cleanup cutoff is too recent', 'The cleanup cutoff is too recent. Preview the cleanup again.'],
+  ['Repository confirmation does not match', 'Repository confirmation does not match.'],
+  ['Failed to fetch', 'Unable to reach the service. Check your connection.'],
+];
+export const messages: Record<string, Record<Language, string>> = Object.fromEntries(
+  pairs.map(([vi, en]) => [vi, { en, vi }]),
+);
+Object.assign(messages, {
+  proposed: { en: 'Proposed', vi: 'Đề xuất' },
+  stale: { en: 'Stale', vi: 'Cần kiểm tra lại' },
+  verified_on_branch: { en: 'Verified on branch', vi: 'Đã xác minh trên branch' },
+  verified_on_main: { en: 'Verified on main', vi: 'Đã xác minh trên main' },
+  superseded: { en: 'Superseded', vi: 'Đã thay thế' },
+  conflicted: { en: 'Conflicted', vi: 'Có xung đột' },
+  fact: { en: 'Fact', vi: 'Thông tin' },
+  decision: { en: 'Decision', vi: 'Quyết định' },
+  finding: { en: 'Finding', vi: 'Phát hiện' },
+  proposal: { en: 'Proposal', vi: 'Đề xuất' },
+  convention: { en: 'Convention', vi: 'Quy ước' },
+  contract: { en: 'Contract', vi: 'Hợp đồng API' },
+  Handoff: { en: 'Handoff', vi: 'Bàn giao' },
+  Context: { en: 'Context', vi: 'Ngữ cảnh' },
+  retentionSummary: {
+    en: 'Keep {days} days · up to {count} memories',
+    vi: 'Giữ {days} ngày · tối đa {count} ghi nhớ',
+  },
+  memoryCountOne: { en: '{count} memory', vi: '{count} ghi nhớ' },
+  memoryCount: { en: '{count} memories', vi: '{count} ghi nhớ' },
+  cleanupDone: {
+    en: 'Cleared old history for {repository} ({count} removed).',
+    vi: 'Đã dọn {count} ghi nhớ cũ của {repository}.',
+  },
+  recallPrompt: {
+    en: 'Use SCE context_recall for repository “{repository}” first. Summarize completed work, decisions, pending tasks, and blockers. Preserve the branch and identify anything that needs verification.',
+    vi: 'Đọc lịch sử SCE của repository “{repository}” bằng context_recall trước. Tóm tắt việc đã làm, quyết định, pending và blockers; giữ rõ branch và những thông tin cần xác minh.',
+  },
+  'Local workspace': { en: 'Local workspace', vi: 'Workspace local' },
+  'Access token': { en: 'Access token', vi: 'Token truy cập' },
+  Repositories: { en: 'Repositories', vi: 'Repository' },
+  'Agent report': { en: 'Agent report', vi: 'Báo cáo agent' },
+  'Project-wide': { en: 'Project-wide', vi: 'Toàn dự án' },
+  'WORKSPACE / SHARED MEMORY': { en: 'WORKSPACE / SHARED MEMORY', vi: 'WORKSPACE / BỘ NHỚ CHUNG' },
+  'Shared Context Engine · Local workspace': {
+    en: 'Shared Context Engine · Local workspace',
+    vi: 'Shared Context Engine · Workspace local',
+  },
+  'Access denied': { en: 'Access denied', vi: 'Bạn không có quyền truy cập' },
+  'Invalid request': { en: 'Invalid request', vi: 'Yêu cầu không hợp lệ' },
+  'Internal service error': { en: 'Internal service error', vi: 'Dịch vụ gặp lỗi nội bộ' },
+  'Cleanup cutoff is too recent': {
+    en: 'The cleanup cutoff is too recent. Preview the cleanup again.',
+    vi: 'Mốc dọn quá gần hiện tại. Vui lòng xem trước lại.',
+  },
+  'Repository confirmation does not match': {
+    en: 'Repository confirmation does not match.',
+    vi: 'Tên repository xác nhận không khớp.',
+  },
+  'Failed to fetch': {
+    en: 'Unable to reach the service. Check your connection.',
+    vi: 'Không kết nối được dịch vụ. Vui lòng kiểm tra kết nối.',
+  },
+});
+Object.assign(messages, {
+  helpNavigation: {
+    en: 'Workspace help',
+    vi: 'Trợ giúp workspace',
+  },
+  helpFlow: {
+    en: 'How it works',
+    vi: 'Luồng hoạt động',
+  },
+  helpDocs: {
+    en: 'Docs',
+    vi: 'Hướng dẫn',
+  },
+  helpClose: {
+    en: 'Close',
+    vi: 'Đóng',
+  },
+  helpPlay: {
+    en: 'Play animation',
+    vi: 'Chạy animation',
+  },
+  helpPause: {
+    en: 'Pause animation',
+    vi: 'Dừng animation',
+  },
+  helpNext: {
+    en: 'Next step',
+    vi: 'Bước tiếp theo',
+  },
+  helpStep: {
+    en: 'Step {step} of 6',
+    vi: 'Bước {step} / 6',
+  },
+  flowIntro: {
+    en: 'Follow one piece of context from an agent session to the next. Select any step to explore it.',
+    vi: 'Theo dõi một context từ phiên agent đến phiên tiếp theo. Chọn từng bước để xem chi tiết.',
+  },
+  step1: {
+    en: '1. Work in your repo',
+    vi: '1. Làm việc trong repo',
+  },
+  detail1: {
+    en: 'Codex or Claude Code works in project A. Their existing local session logs remain on your computer. Register the repo on this dashboard to enable observation.',
+    vi: 'Codex hoặc Claude Code làm việc trong dự án A. Log phiên gốc vẫn nằm trên máy bạn. Thêm repo trên dashboard để bật theo dõi.',
+  },
+  step2: {
+    en: '2. Capture & redact',
+    vi: '2. Thu thập & che dữ liệu',
+  },
+  detail2: {
+    en: 'The local observer reads supported logs for watched repos, captures bounded assistant summaries, and redacts detected secrets. It does not import raw prompts, reasoning, or tool transcripts. Redaction cannot guarantee every secret is detected.',
+    vi: 'Observer local đọc log được hỗ trợ của repo đang theo dõi, lấy trích đoạn phản hồi assistant có giới hạn và che bí mật nhận diện được. Không nhập prompt gốc, suy luận hay toàn bộ log công cụ. Không đảm bảo phát hiện mọi bí mật.',
+  },
+  step3: {
+    en: '3. Authenticate & process',
+    vi: '3. Xác thực & xử lý',
+  },
+  detail3: {
+    en: 'The API checks the bearer token and project permissions. Events are processed into searchable memories with repository, provider, session, branch and commit provenance when available. Local dev processes events in-process; Docker uses a Redis/BullMQ worker queue.',
+    vi: 'API kiểm tra bearer token và quyền dự án. Event được xử lý thành ghi nhớ có thể tìm kiếm, kèm repo, provider, phiên, branch và commit khi có. Local dev xử lý trực tiếp; Docker dùng hàng đợi Redis/BullMQ và worker.',
+  },
+  step4: {
+    en: '4. Store shared memory',
+    vi: '4. Lưu bộ nhớ chung',
+  },
+  detail4: {
+    en: 'Memories, decisions, contracts and handoffs live in the database. Session history follows each repo’s retention policy: default 30 days, up to 10,000 memories / 100 MiB of memory content. These limits are not a total database size cap.',
+    vi: 'Ghi nhớ, quyết định, contract và bàn giao nằm trong DB. Lịch sử phiên tuân theo retention của repo: mặc định 30 ngày, tối đa 10.000 ghi nhớ / 100 MiB nội dung ghi nhớ. Đây không phải giới hạn dung lượng toàn DB.',
+  },
+  step5: {
+    en: '5. Recall through MCP',
+    vi: '5. Đọc lại qua MCP',
+  },
+  detail5: {
+    en: 'A new Codex or Claude Code session calls context_repositories, then context_recall using the repository name or working directory. A session in project B can recall project A if its token has access.',
+    vi: 'Phiên Codex hoặc Claude Code mới gọi context_repositories, rồi context_recall bằng tên repo hoặc thư mục làm việc. Phiên ở dự án B có thể đọc dự án A nếu token có quyền.',
+  },
+  step6: {
+    en: '6. Continue & checkpoint',
+    vi: '6. Tiếp tục & bàn giao',
+  },
+  detail6: {
+    en: 'The agent uses retrieved summaries to resume work and can call context_checkpoint with outcomes and pending tasks. Recall depends on the agent calling MCP; it is not automatic chat synchronization. Verify relevant code when needed: Git remains the source of truth.',
+    vi: 'Agent dùng tóm tắt truy xuất được để tiếp tục và có thể gọi context_checkpoint lưu kết quả, việc còn dở. Việc đọc phụ thuộc agent gọi MCP; không tự đồng bộ toàn bộ chat. Vẫn xác minh code khi cần: Git là nguồn sự thật.',
+  },
+  storageTitle: {
+    en: 'Where does the data live?',
+    vi: 'Dữ liệu được lưu ở đâu?',
+  },
+  storageLocal: {
+    en: 'Local dev · npm run dev',
+    vi: 'Local dev · npm run dev',
+  },
+  storageLocalText: {
+    en: 'PGlite database: .local/postgres. Access token: .local/dev-token. The token entered on this UI stays in page memory; reconnect after a reload.',
+    vi: 'DB PGlite: .local/postgres. Token truy cập: .local/dev-token. Token nhập trên UI chỉ giữ trong bộ nhớ trang; tải lại trang cần kết nối lại.',
+  },
+  storageLogs: {
+    en: 'Existing agent logs',
+    vi: 'Log gốc của agent',
+  },
+  storageLogsText: {
+    en: 'Codex: ~/.codex/sessions and ~/.codex/archived_sessions. Claude Code: ~/.claude/projects. These are input sources, not a second copy of the shared database.',
+    vi: 'Codex: ~/.codex/sessions và ~/.codex/archived_sessions. Claude Code: ~/.claude/projects. Đây là nguồn đầu vào, không phải bản sao DB chung.',
+  },
+  storageDocker: {
+    en: 'Docker deployment',
+    vi: 'Triển khai Docker',
+  },
+  storageDockerText: {
+    en: 'PostgreSQL persists in postgres_data; Redis queues persist in redis_data. Docker does not automatically observe host logs: run the host observer separately.',
+    vi: 'PostgreSQL lưu trong postgres_data; hàng đợi Redis lưu trong redis_data. Docker không tự theo dõi log máy host: cần chạy observer trên host riêng.',
+  },
+  storageOther: {
+    en: 'Browser & optional CLI',
+    vi: 'Trình duyệt & CLI tùy chọn',
+  },
+  storageOtherText: {
+    en: 'Browser localStorage saves only UI preferences (sce-theme, sce-language). The optional CLI offline spool uses ~/.sce/spool.sqlite. Clearing shared history does not delete original agent logs or this spool.',
+    vi: 'localStorage trình duyệt chỉ lưu tùy chọn UI (sce-theme, sce-language). Hàng đợi offline CLI tùy chọn dùng ~/.sce/spool.sqlite. Dọn lịch sử chung không xóa log gốc của agent hoặc spool này.',
+  },
+  docsIntro: {
+    en: 'From a running workspace to shared context in another chat.',
+    vi: 'Từ workspace đang chạy đến context dùng chung ở phiên chat khác.',
+  },
+  docsStart: {
+    en: '1. Start & connect',
+    vi: '1. Khởi động & kết nối',
+  },
+  docsStartText: {
+    en: 'Run npm run dev in this service repository. Open http://localhost:3000, copy the content of .local/dev-token into Access token, and connect. Keep the service running while agents use MCP.',
+    vi: 'Chạy npm run dev trong repo dịch vụ này. Mở http://localhost:3000, copy nội dung .local/dev-token vào Token truy cập rồi kết nối. Giữ dịch vụ chạy khi agent dùng MCP.',
+  },
+  docsRepo: {
+    en: '2. Add repositories',
+    vi: '2. Thêm repository',
+  },
+  docsRepoText: {
+    en: 'Enter the repository folder name in the repository form, choose its history duration, and add it. The folder must be inside the configured workspace root. Only registered, enabled repos are observed; check their status on the UI.',
+    vi: 'Nhập tên thư mục repo trong form repository, chọn thời gian giữ lịch sử và thêm vào. Thư mục phải thuộc workspace root đã cấu hình. Chỉ repo đã đăng ký và bật theo dõi được quan sát; xem trạng thái trên UI.',
+  },
+  docsMcp: {
+    en: '3. Connect your agents once',
+    vi: '3. Kết nối agent một lần',
+  },
+  docsMcpText: {
+    en: 'Run npm run mcp:config for Codex, or npm run mcp:config -- claude for Claude Code, and copy the generated configuration. Restart the client or start a new session so it loads the MCP server. Each client needs its own MCP configuration; projects do not need separate tokens if the configured token has permission.',
+    vi: 'Chạy npm run mcp:config cho Codex, hoặc npm run mcp:config -- claude cho Claude Code, rồi copy cấu hình được sinh. Khởi động lại client hoặc mở phiên mới để nạp MCP server. Mỗi client cần cấu hình MCP riêng; các project không cần token riêng nếu token cấu hình có quyền.',
+  },
+  docsRecall: {
+    en: '4. Ask for history, then save a handoff',
+    vi: '4. Đọc lịch sử rồi lưu bàn giao',
+  },
+  docsRecallText: {
+    en: 'Use this request in a fresh session. Replace demo-frontend with the registered repo name; use project A’s name even when working in project B.',
+    vi: 'Dùng yêu cầu này ở phiên mới. Thay demo-frontend bằng tên repo đã đăng ký; dùng tên dự án A kể cả khi đang ở dự án B.',
+  },
+  docsPrompt: {
+    en: 'Call context_recall for repository demo-frontend. Summarize completed work, decisions, pending tasks and blockers; keep branch information. When finished, call context_checkpoint to save a handoff.',
+    vi: 'Gọi context_recall cho repository demo-frontend. Tóm tắt việc đã làm, quyết định, việc còn dở và trở ngại; giữ thông tin branch. Khi xong, gọi context_checkpoint để lưu bàn giao.',
+  },
+  docsCare: {
+    en: '5. Review & maintain',
+    vi: '5. Kiểm tra & bảo trì',
+  },
+  docsCareText: {
+    en: 'Use history filters to inspect captured summaries. Clear old context previews eligible session memories before confirmation; durable decisions, contracts and handoffs are preserved. Theme and EN/VI language preferences are saved in this browser.',
+    vi: 'Dùng bộ lọc lịch sử để kiểm tra tóm tắt đã thu thập. Dọn context cũ cho xem trước ghi nhớ phiên đủ điều kiện trước khi xác nhận; quyết định, contract và bàn giao lâu dài được giữ lại. Giao diện và ngôn ngữ EN/VI được lưu trên trình duyệt này.',
+  },
+  authorLabel: {
+    en: 'Author',
+    vi: 'Tác giả',
+  },
+  githubPending: {
+    en: 'GitHub: link to be added',
+    vi: 'GitHub: sẽ bổ sung liên kết',
+  },
+});
+export function translate(
+  language: Language,
+  key: string,
+  values: Record<string, string | number> = {},
+) {
+  const entry = messages[key] ?? Object.values(messages).find((m) => m.en === key || m.vi === key);
+  const text = entry?.[language] ?? key;
+  return text.replace(/\{(\w+)\}/g, (match, name) => String(values[name] ?? match));
+}

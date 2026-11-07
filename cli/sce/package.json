@@ -1,0 +1,19 @@
+{
+  "name": "@sce/cli",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "sce": "bin/sce.mjs"
+  },
+  "files": [
+    "bin",
+    "src"
+  ],
+  "engines": {
+    "node": ">=22.13"
+  },
+  "dependencies": {
+    "tsx": "4.20.6",
+    "zod": "4.6.7"
+  }
+}

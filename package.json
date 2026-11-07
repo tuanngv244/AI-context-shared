@@ -1,0 +1,56 @@
+{
+  "name": "shared-context-engine",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Local shared memory for coding agents across sessions and repositories.",
+  "license": "MIT",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "cli/*"
+  ],
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "build:dashboard": "npm run build -w @sce/dashboard",
+    "test": "tsx --test tests/*.test.ts",
+    "check": "npm run build && npm test",
+    "migrate": "tsx packages/db/src/migrate.ts",
+    "seed": "tsx packages/db/src/seed.ts",
+    "api": "tsx apps/api/src/server.ts",
+    "worker": "tsx apps/worker/src/index.ts",
+    "sce": "tsx cli/sce/src/index.ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "dev": "tsx scripts/dev.ts",
+    "test:memory-smoke": "tsx scripts/smoke-memory.ts",
+    "test:ui": "playwright test",
+    "mcp:config": "node scripts/mcp-config.mjs",
+    "export:common": "node scripts/export-common.mjs"
+  },
+  "dependencies": {
+    "@fastify/rate-limit": "10.3.0",
+    "@modelcontextprotocol/sdk": "1.32.2",
+    "bullmq": "5.63.0",
+    "fastify": "5.12.8",
+    "ioredis": "5.8.2",
+    "jose": "6.1.2",
+    "pg": "8.16.3",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.15",
+    "@electric-sql/pglite-pgvector": "0.0.16",
+    "@playwright/test": "1.65.0",
+    "@types/node": "22.19.1",
+    "@types/pg": "8.15.6",
+    "node": "22.22.0",
+    "pg-mem": "3.0.5",
+    "prettier": "3.9.10",
+    "tsx": "4.20.6",
+    "typescript": "5.9.3"
+  }
+}

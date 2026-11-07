@@ -1,0 +1,19 @@
+{
+  "name": "@sce/dashboard",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "start": "next start -H 0.0.0.0"
+  },
+  "dependencies": {
+    "next": "16.4.5",
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2"
+  }
+}
